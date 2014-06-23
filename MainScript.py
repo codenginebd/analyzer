@@ -55,7 +55,7 @@ def get_day_of_the_week():
 
 class Main:
     def __init__(self):
-        self.static_header = ["Sunday", "stime", "Monday", "mtime","Tuesday", "ttime","Wednesday", "wtime","Thursday", "thtime", "Friday", "ftime", "Saturday"]
+        self.static_header = ["Sunday", "stime", "Monday", "mtime","Tuesday", "ttime","Wednesday", "wtime","Thursday", "thtime", "Friday", "ftime", "Saturday","satime"]
 
     def get_row_index(self):
         #Get today's day name like: Saturday
