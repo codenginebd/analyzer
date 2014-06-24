@@ -65,6 +65,34 @@ class Main:
             if val == today_day:
                 return i
 
+    def get_current_time_in_seconds(self):
+        current_time_hour = datetime.datetime.now().hour
+        current_time_min = datetime.datetime.now().minute
+        s_float = str(current_time_hour)+'.'+str(current_time_min)
+        current_time = float(s_float)
+        return int(current_time*3600)
+
+    def find_f2_and_f3(self,f2_row,f3_row):
+        row_index = self.get_row_index()
+        f2_val = f2_row[row_index]
+        f3_val = f3_row[row_index]
+
+        current_time_secs = self.get_current_time_in_seconds()
+
+        if f2_val > current_time_secs or f3_val > current_time_secs:
+            prev_row_index = row_index
+            while True:
+                prev_row_index = prev_row_index - 2
+                if prev_row_index <= 0:
+                    break
+                f2_val = f2_row[prev_row_index]
+                f3_val = f3_row[prev_row_index]
+
+                if f2_val > 0 or f3_val > 0:
+                    break
+
+        return f2_val,f3_val
+
     def check_and_return(self):
         """ This function read data from all the three files, process the data and return list of output. """
         file1_name,file2_name,file3_name = 'file1.txt','file2.txt','file3.txt'
@@ -86,8 +114,12 @@ class Main:
             #file1.txt data may be either string or int. So the comparison should be in string.
             f1_val = file1_val[2]
             #Convert the value to int. Get column value for this row using the r_index we got earlier by today's day name.
-            f2_val = int(file2_val[r_index])
-            f3_val = int(file3_val[r_index])
+            #f2_val = int(file2_val[r_index])
+            #f3_val = int(file3_val[r_index])
+            f2_val,f3_val = self.find_f2_and_f3(file2_val,file3_val)
+
+            f2_val = int(f2_val)
+            f3_val = int(f3_val)
 
             chance = "ERROR"
             if ( f2_val > 0 and f3_val == 0 and f1_val == '1'):
