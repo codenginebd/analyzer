@@ -65,6 +65,13 @@ class Main:
             if val == today_day:
                 return i
 
+    def get_current_time_in_seconds(self):
+        current_time_hour = datetime.datetime.now().hour
+        current_time_min = datetime.datetime.now().minute
+        s_float = str(current_time_hour)+'.'+str(current_time_min)
+        current_time = float(s_float)
+        return int(current_time*3600)
+
     def check_and_return(self):
         """ This function read data from all the three files, process the data and return list of output. """
         file1_name,file2_name,file3_name = 'file1.txt','file2.txt','file3.txt'
